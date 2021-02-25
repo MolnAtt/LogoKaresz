@@ -16,5 +16,15 @@ namespace LogoKaresz
 		{
 			InitializeComponent();
 		}
+
+		private void startgomb_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void rajzlap_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
 	}
 }
