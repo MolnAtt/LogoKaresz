@@ -24,8 +24,8 @@ namespace LogoKaresz
 			}
 			else //koordinátatípus == "polár"
 			{
-				X = y * Math.Cos(x);
-				Y = y * Math.Sin(x);
+				X = y * Cos(x);
+				Y = y * Sin(x);
 			}
 		}
 
@@ -33,6 +33,8 @@ namespace LogoKaresz
 
 		public static Pont operator +(Pont P, Pont Q) => new Pont(P.X + Q.X, P.Y + Q.Y);
 
+		private static double Sin(double szög) => Math.Sin(Math.PI * szög / 180);
+		private static double Cos(double szög) => Math.Cos(Math.PI * szög / 180);
 
 	}
 }

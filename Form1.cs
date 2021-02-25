@@ -13,24 +13,36 @@ namespace LogoKaresz
 {
 	public partial class Form1 : Form
 	{
+
+
+
+		void FELADAT()
+		{
+			Avatar Karesz = new Avatar(this, new Pont(400, 400), 90);
+			Thread.Sleep(100);
+
+			for (int i = 0; i < 8; i++)
+			{
+				Karesz.Lépj(50);
+				Karesz.Fordulj(90);
+			}
+
+			for (int i = 0; i < 6; i++)
+			{
+				Karesz.Lépj(100);
+				Karesz.Fordulj(120);
+			}
+
+		}
+
 		public Form1()
 		{
 			InitializeComponent();
-			Avatar Karesz = new Avatar(this, new Pont(400, 400), 90);
-
-			Karesz.Lépj(40);
-			Thread.Sleep(100);
-			Karesz.Fordulj(60);
-			Thread.Sleep(100);
-			Karesz.Lépj(40);
-			Thread.Sleep(100);
-
-
 		}
 
 		private void startgomb_Click(object sender, EventArgs e)
 		{
-
+			FELADAT();
 		}
 
 		private void rajzlap_Paint(object sender, PaintEventArgs e)

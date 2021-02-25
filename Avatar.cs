@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LogoKaresz
@@ -24,7 +25,6 @@ namespace LogoKaresz
 			this.irány = irány;
 
 			avatarpb = new PictureBox();
-			avatarpb.Location = hely.ToPoint();
 			avatarpb.BackColor = Color.Blue;
 			avatarpb.Size = new Size(10, 10);
 			szülőform.Controls.Add(avatarpb);
@@ -37,16 +37,18 @@ namespace LogoKaresz
 		{
 			Pont lépővektor = new Pont(irány,t, "polár"); // ez most polárkoordinátás kellene legyen!
 			hely += lépővektor;
+			Thread.Sleep(100);
 			Frissít();
 		}
 
-		public void Fordulj(double f) { irány += f;  Frissít(); }
+		public void Fordulj(double f) { irány += f; irány %= 360; Frissít(); }
 
 		private void Frissít()
 		{
 			szülőform.dlx.Text = hely.X.ToString();
 			szülőform.dly.Text = hely.Y.ToString();
 			szülőform.dli.Text = irány.ToString();
+			avatarpb.Location = hely.ToPoint();
 			szülőform.Refresh();
 		}
 	}
