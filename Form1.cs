@@ -15,6 +15,7 @@ namespace LogoKaresz
 		public Form1()
 		{
 			InitializeComponent();
+			Avatar Karesz = new Avatar(this, new Pont(100, 200), 90);
 		}
 
 		private void startgomb_Click(object sender, EventArgs e)
