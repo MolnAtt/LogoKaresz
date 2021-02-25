@@ -12,16 +12,26 @@ namespace LogoKaresz
 {
 	struct Pont
 	{
-		private double X;
-		private double Y;
+		public double X { get; set; }
+		public double Y { get; set; }
 
-		public Pont(double x, double y)
+		public Pont(double x, double y, string koordinátatípus = "Descartes")
 		{
-			X = x;
-			Y = y;
+			if (koordinátatípus == "Descartes")
+			{
+				X = x;
+				Y = y;
+			}
+			else //koordinátatípus == "polár"
+			{
+				X = y * Math.Cos(x);
+				Y = y * Math.Sin(x);
+			}
 		}
 
 		public Point ToPoint() => new Point((int)Math.Round(X), (int)Math.Round(Y));
+
+		public static Pont operator +(Pont P, Pont Q) => new Pont(P.X + Q.X, P.Y + Q.Y);
 
 
 	}

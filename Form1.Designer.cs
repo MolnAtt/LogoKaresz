@@ -105,9 +105,9 @@
 
 		private System.Windows.Forms.PictureBox rajzlap;
 		private System.Windows.Forms.Button startgomb;
-		private System.Windows.Forms.Label dlx;
-		private System.Windows.Forms.Label dly;
-		private System.Windows.Forms.Label dli;
+		public System.Windows.Forms.Label dlx;
+		public System.Windows.Forms.Label dly;
+		public System.Windows.Forms.Label dli;
 	}
 }
 

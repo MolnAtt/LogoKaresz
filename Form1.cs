@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LogoKaresz
@@ -15,7 +16,16 @@ namespace LogoKaresz
 		public Form1()
 		{
 			InitializeComponent();
-			Avatar Karesz = new Avatar(this, new Pont(100, 200), 90);
+			Avatar Karesz = new Avatar(this, new Pont(400, 400), 90);
+
+			Karesz.Lépj(40);
+			Thread.Sleep(100);
+			Karesz.Fordulj(60);
+			Thread.Sleep(100);
+			Karesz.Lépj(40);
+			Thread.Sleep(100);
+
+
 		}
 
 		private void startgomb_Click(object sender, EventArgs e)

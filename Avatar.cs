@@ -26,11 +26,28 @@ namespace LogoKaresz
 			avatarpb = new PictureBox();
 			avatarpb.Location = hely.ToPoint();
 			avatarpb.BackColor = Color.Blue;
-			szülőform.Controls.Add(avatarpb);
 			avatarpb.Size = new Size(10, 10);
+			szülőform.Controls.Add(avatarpb);
 			avatarpb.BringToFront();
 
+			Frissít();
+		}
 
+		public void Lépj(double t)
+		{
+			Pont lépővektor = new Pont(irány,t, "polár"); // ez most polárkoordinátás kellene legyen!
+			hely += lépővektor;
+			Frissít();
+		}
+
+		public void Fordulj(double f) { irány += f;  Frissít(); }
+
+		private void Frissít()
+		{
+			szülőform.dlx.Text = hely.X.ToString();
+			szülőform.dly.Text = hely.Y.ToString();
+			szülőform.dli.Text = irány.ToString();
+			szülőform.Refresh();
 		}
 	}
 }
