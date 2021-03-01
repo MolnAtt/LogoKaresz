@@ -28,23 +28,23 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.rajzlap = new System.Windows.Forms.PictureBox();
+			this.képkeret = new System.Windows.Forms.PictureBox();
 			this.startgomb = new System.Windows.Forms.Button();
 			this.dlx = new System.Windows.Forms.Label();
 			this.dly = new System.Windows.Forms.Label();
 			this.dli = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.rajzlap)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.képkeret)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// rajzlap
 			// 
-			this.rajzlap.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.rajzlap.Location = new System.Drawing.Point(10, 9);
-			this.rajzlap.Name = "rajzlap";
-			this.rajzlap.Size = new System.Drawing.Size(989, 549);
-			this.rajzlap.TabIndex = 0;
-			this.rajzlap.TabStop = false;
-			this.rajzlap.Paint += new System.Windows.Forms.PaintEventHandler(this.rajzlap_Paint);
+			this.képkeret.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.képkeret.Location = new System.Drawing.Point(10, 9);
+			this.képkeret.Name = "rajzlap";
+			this.képkeret.Size = new System.Drawing.Size(989, 549);
+			this.képkeret.TabIndex = 0;
+			this.képkeret.TabStop = false;
+			this.képkeret.Paint += new System.Windows.Forms.PaintEventHandler(this.rajzlap_Paint);
 			// 
 			// startgomb
 			// 
@@ -92,10 +92,10 @@
 			this.Controls.Add(this.dly);
 			this.Controls.Add(this.dlx);
 			this.Controls.Add(this.startgomb);
-			this.Controls.Add(this.rajzlap);
+			this.Controls.Add(this.képkeret);
 			this.Name = "Form1";
 			this.Text = "Form1";
-			((System.ComponentModel.ISupportInitialize)(this.rajzlap)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.képkeret)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -103,7 +103,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.PictureBox rajzlap;
+		public System.Windows.Forms.PictureBox képkeret;
 		private System.Windows.Forms.Button startgomb;
 		public System.Windows.Forms.Label dlx;
 		public System.Windows.Forms.Label dly;

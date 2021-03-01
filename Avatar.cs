@@ -17,16 +17,25 @@ namespace LogoKaresz
 		private double irány;
 		Form1 szülőform;
 		private PictureBox avatarpb;
+		Pen toll;
+		Graphics gr;
+		int w;
+		int h;
+
 
 		public Avatar(Form1 szülőform, Pont hely, double irány)
 		{
 			this.szülőform = szülőform;
 			this.hely = hely;
 			this.irány = irány;
+			this.toll = new Pen(Color.Black);
+			this.gr = Graphics.FromImage(szülőform.rajzlap); // formnak itt már lennie kell!
+			this.w = 5;
+			this.h = 5;
 
 			avatarpb = new PictureBox();
 			avatarpb.BackColor = Color.Blue;
-			avatarpb.Size = new Size(10, 10);
+			avatarpb.Size = new Size(w, h);
 			szülőform.Controls.Add(avatarpb);
 			avatarpb.BringToFront();
 
@@ -35,8 +44,9 @@ namespace LogoKaresz
 
 		public void Lépj(double t)
 		{
-			Pont lépővektor = new Pont(irány,t, "polár"); // ez most polárkoordinátás kellene legyen!
-			hely += lépővektor;
+			Pont hollesz = hely + new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
+			gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
+			hely = hollesz;
 			Thread.Sleep(100);
 			Frissít();
 		}
@@ -48,7 +58,10 @@ namespace LogoKaresz
 			szülőform.dlx.Text = hely.X.ToString();
 			szülőform.dly.Text = hely.Y.ToString();
 			szülőform.dli.Text = irány.ToString();
-			avatarpb.Location = hely.ToPoint();
+			avatarpb.Location = hely.ToPoint(szülőform.képkeret.Location, w, h);
+
+			szülőform.képkeret.Image = szülőform.rajzlap; // innen töltődik be a legújabb változat
+
 			szülőform.Refresh();
 		}
 	}

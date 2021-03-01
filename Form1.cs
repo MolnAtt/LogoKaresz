@@ -13,7 +13,7 @@ namespace LogoKaresz
 {
 	public partial class Form1 : Form
 	{
-
+		public Bitmap rajzlap;
 
 
 		void FELADAT()
@@ -38,6 +38,8 @@ namespace LogoKaresz
 		public Form1()
 		{
 			InitializeComponent();
+			rajzlap = new Bitmap(this.Width, this.Height);
+
 		}
 
 		private void startgomb_Click(object sender, EventArgs e)
