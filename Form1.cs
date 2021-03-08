@@ -14,20 +14,29 @@ namespace LogoKaresz
 	public partial class Form1 : Form
 	{
 		public Bitmap rajzlap;
-
+		const bool fel = false;
+		const bool le = true;
 
 		void FELADAT()
 		{
 			Avatar Karesz = new Avatar(this, new Pont(400, 400), 90);
 			Thread.Sleep(100);
 
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				Karesz.Lépj(50);
 				Karesz.Fordulj(90);
 			}
 
-			for (int i = 0; i < 6; i++)
+			Karesz.Tollat(fel);
+
+			Karesz.Fordulj(-90);
+
+			Karesz.Lépj(50);
+
+			Karesz.Tollat(le);
+
+			for (int i = 0; i < 3; i++)
 			{
 				Karesz.Lépj(100);
 				Karesz.Fordulj(120);

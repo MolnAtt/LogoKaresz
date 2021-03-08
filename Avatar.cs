@@ -21,7 +21,7 @@ namespace LogoKaresz
 		Graphics gr;
 		int w;
 		int h;
-
+		bool rajzole;
 
 		public Avatar(Form1 szülőform, Pont hely, double irány)
 		{
@@ -32,6 +32,7 @@ namespace LogoKaresz
 			this.gr = Graphics.FromImage(szülőform.rajzlap); // formnak itt már lennie kell!
 			this.w = 5;
 			this.h = 5;
+			this.rajzole = true;
 
 			avatarpb = new PictureBox();
 			avatarpb.BackColor = Color.Blue;
@@ -45,13 +46,22 @@ namespace LogoKaresz
 		public void Lépj(double t)
 		{
 			Pont hollesz = hely + new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
-			gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
+			if (rajzole)
+			{
+				gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
+			}
 			hely = hollesz;
 			Thread.Sleep(100);
 			Frissít();
 		}
 
 		public void Fordulj(double f) { irány += f; irány %= 360; Frissít(); }
+
+
+		// Tollat(fel)
+		// Tollat(le)
+		// fel és le igazából logikai konstansok lesznek -- ebből a felhasználó semmit nem fog látni (mint Karesznél a jobbra és a balra!)
+		public void Tollat(bool le) { rajzole = le; }
 
 		private void Frissít()
 		{
