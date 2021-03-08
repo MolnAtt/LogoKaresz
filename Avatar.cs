@@ -55,7 +55,7 @@ namespace LogoKaresz
 			Frissít();
 		}
 
-		public void Fordulj(double f) { irány += f; irány %= 360; Frissít(); }
+		public void Fordulj(double f) { irány -= f; irány %= 360; Frissít(); }
 		public void Jobbra(double f) { irány += f; irány %= 360; Frissít(); }
 		public void Balra(double f) { irány -= f; irány %= 360; Frissít(); }
 
