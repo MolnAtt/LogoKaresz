@@ -54,10 +54,12 @@ namespace LogoKaresz
 			Thread.Sleep(100);
 			Frissít();
 		}
+		public void Előre(double t) { Lépj(t); }
+		public void Hátra(double t) { Lépj(-t); }
 
 		public void Fordulj(double f) { irány -= f; irány %= 360; Frissít(); }
-		public void Jobbra(double f) { irány += f; irány %= 360; Frissít(); }
-		public void Balra(double f) { irány -= f; irány %= 360; Frissít(); }
+		public void Jobbra(double f) { Fordulj(-f); }
+		public void Balra(double f) { Fordulj(f); }
 
 
 		// Tollat(fel)
