@@ -25,12 +25,12 @@ namespace LogoKaresz
 			for (int i = 0; i < 4; i++)
 			{
 				Karesz.Lépj(50);
-				Karesz.Fordulj(90);
+				Karesz.Jobbra(90);
 			}
 
 			Karesz.Tollat(fel);
 
-			Karesz.Fordulj(-90);
+			Karesz.Balra(90);
 
 			Karesz.Lépj(50);
 
@@ -39,7 +39,7 @@ namespace LogoKaresz
 			for (int i = 0; i < 3; i++)
 			{
 				Karesz.Lépj(100);
-				Karesz.Fordulj(120);
+				Karesz.Jobbra(120);
 			}
 
 		}

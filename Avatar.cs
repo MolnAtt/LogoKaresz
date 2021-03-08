@@ -45,7 +45,7 @@ namespace LogoKaresz
 
 		public void Lépj(double t)
 		{
-			Pont hollesz = hely + new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
+			Pont hollesz = hely - new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
 			if (rajzole)
 			{
 				gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
@@ -56,6 +56,8 @@ namespace LogoKaresz
 		}
 
 		public void Fordulj(double f) { irány += f; irány %= 360; Frissít(); }
+		public void Jobbra(double f) { irány += f; irány %= 360; Frissít(); }
+		public void Balra(double f) { irány -= f; irány %= 360; Frissít(); }
 
 
 		// Tollat(fel)
