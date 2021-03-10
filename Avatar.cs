@@ -45,6 +45,29 @@ namespace LogoKaresz
 			Frissít();
 		}
 
+		public void Vödör(Color mire)
+		{
+			Point P = hely.ToPoint();
+			Color mit = szülőform.rajzlap.GetPixel(P.X, P.Y);
+			Rekurzív_kitöltés(P.X, P.Y, mit, mire);
+			Frissít();
+		}
+
+		public void Rekurzív_kitöltés(int x, int y, Color mit, Color mire)
+		{
+			if (mit == szülőform.rajzlap.GetPixel(x, y) &&
+				0 <= x && x <= szülőform.rajzlap.Width &&
+				0 <= y && y <= szülőform.rajzlap.Height)
+			{
+				szülőform.rajzlap.SetPixel(x, y, mire);
+				Rekurzív_kitöltés(x + 1, y, mit, mire);
+				Rekurzív_kitöltés(x, y + 1, mit, mire);
+				Rekurzív_kitöltés(x - 1, y, mit, mire);
+				Rekurzív_kitöltés(x, y - 1, mit, mire);
+			}
+
+		}
+
 		public void Lépj(double t)
 		{
 			Pont hollesz = hely - new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
