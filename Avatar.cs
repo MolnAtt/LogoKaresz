@@ -22,6 +22,7 @@ namespace LogoKaresz
 		int w;
 		int h;
 		bool rajzole;
+		int varakozas;
 
 		public Avatar(Form1 szülőform, Pont hely, double irány)
 		{
@@ -33,6 +34,7 @@ namespace LogoKaresz
 			this.w = 5;
 			this.h = 5;
 			this.rajzole = true;
+			this.varakozas = 0;
 
 			avatarpb = new PictureBox();
 			avatarpb.BackColor = Color.Blue;
@@ -51,7 +53,7 @@ namespace LogoKaresz
 				gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
 			}
 			hely = hollesz;
-			Thread.Sleep(100);
+			Thread.Sleep(varakozas);
 			Frissít();
 		}
 		public void Előre(double t) { Lépj(t); }
@@ -61,6 +63,7 @@ namespace LogoKaresz
 		public void Jobbra(double f) { Fordulj(-f); }
 		public void Balra(double f) { Fordulj(f); }
 
+		public void Pihi(int idő) { Thread.Sleep(idő); }
 
 		// Tollat(fel)
 		// Tollat(le)

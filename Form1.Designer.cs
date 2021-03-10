@@ -1,11 +1,51 @@
-﻿namespace LogoKaresz
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace LogoKaresz
 {
 	partial class Form1
 	{
+		public Bitmap rajzlap;
+		const bool fel = false;
+		const bool le = true;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		private static Avatar defaultkaresz;
+		public Form1()
+		{
+			InitializeComponent();
+			rajzlap = new Bitmap(this.Width, this.Height);
+
+			defaultkaresz = new Avatar(this, new Pont(400, 400), 90);
+
+		}
+
+		private void Előre(double d) { defaultkaresz.Előre(d); }
+		private void Hátra(double d) { defaultkaresz.Hátra(d); }
+		private void Jobbra(double d) { defaultkaresz.Jobbra(d); }
+		private void Balra(double d) { defaultkaresz.Balra(d); }
+		private void Fordulj(double d) { defaultkaresz.Fordulj(d); }
+		private void Lépj(double d) { defaultkaresz.Lépj(d); }
+		private void Pihi(int i) { defaultkaresz.Pihi(i); }
+		private void Tollat(bool b) { defaultkaresz.Tollat(b); }
+
+
+		private void startgomb_Click(object sender, EventArgs e)
+		{
+			FELADAT();
+		}
+
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -44,7 +84,6 @@
 			this.képkeret.Size = new System.Drawing.Size(989, 549);
 			this.képkeret.TabIndex = 0;
 			this.képkeret.TabStop = false;
-			this.képkeret.Paint += new System.Windows.Forms.PaintEventHandler(this.rajzlap_Paint);
 			// 
 			// startgomb
 			// 

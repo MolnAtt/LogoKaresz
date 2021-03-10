@@ -1,63 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace LogoKaresz
 {
 	public partial class Form1 : Form
 	{
-		public Bitmap rajzlap;
-		const bool fel = false;
-		const bool le = true;
 
+		void Fa(Avatar Karesz, double hossz, int mélység)
+		{
+			if (mélység!=0)
+			{
+				Karesz.Előre(hossz);
+				Karesz.Balra(60);
+				Fa(Karesz, 0.7 * hossz, mélység - 1);
+				Karesz.Jobbra(120);
+				Fa(Karesz, 0.7 * hossz, mélység - 1);
+				Karesz.Balra(60);
+				Karesz.Hátra(hossz);
+			}
+		}
+		void Fa(Avatar karesz, double hossz, double arány, int mélység)
+		{
+			if (mélység == 0)
+			{
+				return;
+			}
+			karesz.Előre(hossz);
+			karesz.Balra(60);
+			Fa(karesz, hossz * arány, arány, mélység - 1);
+			karesz.Jobbra(120);
+			Fa(karesz, hossz * arány, arány, mélység - 1);
+			karesz.Balra(60);
+			karesz.Hátra(hossz);
+		}
+
+		void Nyírfa(Avatar karesz, double hossz, int mélység)
+		{
+
+		}
 		void FELADAT()
 		{
-			Avatar Karesz = new Avatar(this, new Pont(400, 400), 90);
-			Thread.Sleep(100);
+			defaultkaresz.Pihi(100);
 
-			for (int i = 0; i < 4; i++)
-			{
-				Karesz.Lépj(50);
-				Karesz.Jobbra(90);
-			}
+			//			Fa(Karesz, 150, 5);
+			//			Fa(Karesz, 150, .5d, 7);
 
-			Karesz.Tollat(fel);
+			Fa(defaultkaresz, 150, .5d, 7);
 
-			Karesz.Balra(90);
 
-			Karesz.Lépj(50);
-
-			Karesz.Tollat(le);
-
-			for (int i = 0; i < 3; i++)
-			{
-				Karesz.Lépj(100);
-				Karesz.Jobbra(120);
-			}
-
-		}
-
-		public Form1()
-		{
-			InitializeComponent();
-			rajzlap = new Bitmap(this.Width, this.Height);
-
-		}
-
-		private void startgomb_Click(object sender, EventArgs e)
-		{
-			FELADAT();
-		}
-
-		private void rajzlap_Paint(object sender, PaintEventArgs e)
-		{
 
 		}
 	}
