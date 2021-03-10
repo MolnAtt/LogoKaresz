@@ -33,20 +33,72 @@ namespace LogoKaresz
 			karesz.Hátra(hossz);
 		}
 
-		void Nyírfa(Avatar karesz, double hossz, int mélység)
+		void Nyírfa(double hossz, int mélység)
 		{
-
+			if (mélység>0)
+			{
+				Előre(hossz/2);
+				Balra(30);
+					Nyírfa(hossz / 2, mélység - 1);
+				Jobbra(30);
+				// 1. kisnyírfa kész
+				Előre(hossz / 4);
+				Balra(30);
+					Nyírfa(hossz / 4, mélység - 2);
+				Jobbra(30);
+				// mininyírfa kész
+				Előre(hossz / 4);
+				Jobbra(30);
+					Nyírfa(hossz / 2, mélység - 1);
+				Balra(30);
+				// 2. kisnyírfa kész
+					Nyírfa(hossz / 2, mélység - 1);
+				// 3. kisnyírfa kész
+				Hátra(hossz);
+			}
 		}
+
+
+		void Pitypang2(double hossz, int mélység)
+		{
+			if (mélység > 0)
+			{
+				Előre(hossz);
+				Balra(22.5);
+				Pitypang3(.75 * hossz, mélység - 1);
+				Jobbra(45);
+				Pitypang3(.75 * hossz, mélység - 1);
+				Balra(22.5);
+				Hátra(hossz);
+			}
+		}
+
+		void Pitypang3(double hossz, int mélység)
+		{
+			if (mélység > 0)
+			{
+				Előre(hossz);
+				Balra(45);
+	 				Pitypang2(.75 * hossz, mélység - 1);
+				Jobbra(45);
+					Pitypang2(.75 * hossz, mélység - 1);
+				Jobbra(45);
+					Pitypang2(.75 * hossz, mélység - 1);
+				Balra(45);
+				Hátra(hossz);
+			}
+		}
+
+
+
 		void FELADAT()
 		{
-			defaultkaresz.Pihi(100);
-
 			//			Fa(Karesz, 150, 5);
 			//			Fa(Karesz, 150, .5d, 7);
 
-			Fa(defaultkaresz, 150, .5d, 7);
+			// Nyírfa(150, 5);
 
-
+			Pitypang3(150, 5);
 
 		}
 	}

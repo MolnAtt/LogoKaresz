@@ -16,12 +16,12 @@ namespace LogoKaresz
 		public Bitmap rajzlap;
 		const bool fel = false;
 		const bool le = true;
+		private static Avatar defaultkaresz;
 
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		private static Avatar defaultkaresz;
 		public Form1()
 		{
 			InitializeComponent();
