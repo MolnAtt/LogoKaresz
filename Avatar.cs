@@ -70,6 +70,28 @@ namespace LogoKaresz
 		// fel és le igazából logikai konstansok lesznek -- ebből a felhasználó semmit nem fog látni (mint Karesznél a jobbra és a balra!)
 		public void Tollat(bool le) { rajzole = le; }
 
+		public void Tölt(Color mire)
+		{
+			Point h = this.hely.ToPoint();
+			Rekurzív_kitöltés(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			Frissít();
+		}
+
+
+		private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire)
+		{
+			if (szülőform.rajzlap.GetPixel(x, y) == mit &&
+				0 <= x && x < szülőform.rajzlap.Width &&
+				0 <= y && y < szülőform.rajzlap.Height
+				)
+			{
+				szülőform.rajzlap.SetPixel(x, y, mire);
+				Rekurzív_kitöltés(x, y + 1, mit, mire);
+				Rekurzív_kitöltés(x - 1, y, mit, mire);
+				Rekurzív_kitöltés(x, y - 1, mit, mire);
+				Rekurzív_kitöltés(x + 1, y, mit, mire);
+			}
+		}
 		private void Frissít()
 		{
 			szülőform.dlx.Text = hely.X.ToString();

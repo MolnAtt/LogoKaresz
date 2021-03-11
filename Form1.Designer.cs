@@ -31,15 +31,15 @@ namespace LogoKaresz
 
 		}
 
-		private void Előre(double d) { defaultkaresz.Előre(d); }
-		private void Hátra(double d) { defaultkaresz.Hátra(d); }
-		private void Jobbra(double d) { defaultkaresz.Jobbra(d); }
-		private void Balra(double d) { defaultkaresz.Balra(d); }
-		private void Fordulj(double d) { defaultkaresz.Fordulj(d); }
-		private void Lépj(double d) { defaultkaresz.Lépj(d); }
-		private void Pihi(int i) { defaultkaresz.Pihi(i); }
-		private void Tollat(bool b) { defaultkaresz.Tollat(b); }
-
+		private void Előre(double d) => defaultkaresz.Előre(d);
+		private void Hátra(double d) => defaultkaresz.Hátra(d);
+		private void Jobbra(double d) => defaultkaresz.Jobbra(d);
+		private void Balra(double d) => defaultkaresz.Balra(d);
+		private void Fordulj(double d) => defaultkaresz.Fordulj(d);
+		private void Lépj(double d) => defaultkaresz.Lépj(d);
+		private void Pihi(int i) => defaultkaresz.Pihi(i);
+		private void Tollat(bool b) => defaultkaresz.Tollat(b);
+		private void Tölt(Color c) => defaultkaresz.Tölt(c);
 
 		private void startgomb_Click(object sender, EventArgs e)
 		{
