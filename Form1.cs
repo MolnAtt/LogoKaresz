@@ -7,15 +7,17 @@ namespace LogoKaresz
 	{
 		void FELADAT()
 		{
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 11; i++)
 			{
-				Előre(100);
-				Jobbra(90);
+				Előre(50);
+				Jobbra(360/11d);
 			}
 			Tollat(fel);
 			Jobbra(45);
 			Előre(100);
 			Tölt(Color.Red);
+
+
 		}
 	}
 }

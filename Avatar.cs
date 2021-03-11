@@ -73,17 +73,81 @@ namespace LogoKaresz
 		public void Tölt(Color mire)
 		{
 			Point h = this.hely.ToPoint();
-			Rekurzív_kitöltés(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			//Rekurzív_kitöltés(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			//Kitöltés_szélességi_bejárással(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			Kitöltés_mélységi_bejárással(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
 			Frissít();
 		}
 
+		private void Kitöltés_szélességi_bejárással(int x, int y, Color mit, Color mire)
+		{
+			Queue<Point> tennivalók = new Queue<Point>(); // azon pixelek listája, akiknek majd még meg kell nézni a szomszédait!
+			tennivalók.Enqueue(new Point(x, y));
+			szülőform.rajzlap.SetPixel(x, y, mire);
 
-		private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire)
+			Point p;
+			Point[] szomszédok;
+			while (tennivalók.Count != 0)
+			{
+				p = tennivalók.Dequeue();
+				szomszédok = new Point[4] 
+					{ 
+						new Point(p.X, p.Y + 1), 
+						new Point(p.X - 1, p.Y), 
+						new Point(p.X, p.Y - 1), 
+						new Point(p.X + 1, p.Y) 
+					};
+
+				// szomszédvizsgálat
+				foreach (Point sz in szomszédok)
+				{
+					if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
+						0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
+						0 <= sz.Y && sz.Y < szülőform.rajzlap.Height )
+					{
+						szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
+						tennivalók.Enqueue(sz);
+					}
+				}
+			}
+		}
+		private void Kitöltés_mélységi_bejárással(int x, int y, Color mit, Color mire)
+		{
+			Stack<Point> tennivalók = new Stack<Point>(); // azon pixelek listája, akiknek majd még meg kell nézni a szomszédait!
+			tennivalók.Push(new Point(x, y));
+			szülőform.rajzlap.SetPixel(x, y, mire);
+
+			Point p;
+			Point[] szomszédok;
+			while (tennivalók.Count != 0)
+			{
+				p = tennivalók.Pop();
+				szomszédok = new Point[4]
+					{
+						new Point(p.X, p.Y + 1),
+						new Point(p.X - 1, p.Y),
+						new Point(p.X, p.Y - 1),
+						new Point(p.X + 1, p.Y)
+					};
+
+				// szomszédvizsgálat
+				foreach (Point sz in szomszédok)
+				{
+					if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
+						0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
+						0 <= sz.Y && sz.Y < szülőform.rajzlap.Height)
+					{
+						szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
+						tennivalók.Push(sz);
+					}
+				}
+			}
+		}
+		private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire) // Nem jó sajnos, stack overflow :(
 		{
 			if (szülőform.rajzlap.GetPixel(x, y) == mit &&
 				0 <= x && x < szülőform.rajzlap.Width &&
-				0 <= y && y < szülőform.rajzlap.Height
-				)
+				0 <= y && y < szülőform.rajzlap.Height )
 			{
 				szülőform.rajzlap.SetPixel(x, y, mire);
 				Rekurzív_kitöltés(x, y + 1, mit, mire);
