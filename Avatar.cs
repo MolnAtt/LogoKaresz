@@ -156,6 +156,18 @@ namespace LogoKaresz
 				Rekurzív_kitöltés(x + 1, y, mit, mire);
 			}
 		}
+
+		private void Kör(double r) // Karesz van a középpontban
+		{
+			throw new NotImplementedException();
+		}
+		private void Ív(double r, double fok) // balra-jobbra mehet a fok előjelébe!
+		{
+			throw new NotImplementedException();
+		}
+
+//		private void Bezier()
+		
 		private void Frissít()
 		{
 			szülőform.dlx.Text = hely.X.ToString();
