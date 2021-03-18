@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LogoKaresz
 {
-	struct Pont
+	public struct Pont
 	{
 		public double X { get; set; }
 		public double Y { get; set; }

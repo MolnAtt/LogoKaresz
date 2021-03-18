@@ -7,8 +7,19 @@ namespace LogoKaresz
 	{
 		void FELADAT()
 		{
-			
+			// defaultkaresz.Kör(100); // bugos! sugár látszik, később megoldjuk!
+
+
+			using (new Rajzol(defaultkaresz, false))
+			{
+				Előre(100);
+			}
+
+			Előre(100);
+
 
 		}
+
+
 	}
 }

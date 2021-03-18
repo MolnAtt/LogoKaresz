@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LogoKaresz
 {
-	class Avatar
+	public class Avatar
 	{
 		private Pont hely;
 		private double irány;
@@ -21,8 +21,19 @@ namespace LogoKaresz
 		Graphics gr;
 		int w;
 		int h;
-		bool rajzole;
+		public bool rajzole;
 		int varakozas;
+		private bool állandó_frissítés;
+		public bool Állandó_frissítés
+		{ 
+			get => állandó_frissítés;
+			set 
+			{
+				állandó_frissítés = value;
+				Frissít();
+			}
+		}
+
 
 		public Avatar(Form1 szülőform, Pont hely, double irány)
 		{
@@ -35,6 +46,9 @@ namespace LogoKaresz
 			this.h = 5;
 			this.rajzole = true;
 			this.varakozas = 0;
+			this.állandó_frissítés = true;
+
+
 
 			avatarpb = new PictureBox();
 			avatarpb.BackColor = Color.Blue;
@@ -157,27 +171,64 @@ namespace LogoKaresz
 			}
 		}
 
-		private void Kör(double r) // Karesz van a középpontban
+		public void Kör(double r) // Karesz van a középpontban
 		{
-			throw new NotImplementedException();
+			Előre(r);
+			Jobbra(90.5);
+			double a = 2 * r * Math.Sin(0.5 * Math.PI / 180);
+			for (int i = 0; i < 360; i++)
+			{
+				Előre(a);
+				Jobbra(1);
+			}
+			Balra(90.5);
+			Hátra(r);
 		}
-		private void Ív(double r, double fok) // balra-jobbra mehet a fok előjelébe!
+		public void Ív(int fok, double r, bool frissít_e = false)
 		{
+			using (new Form1.Frissítés(this, frissít_e))
+			{
+				double a = 2 * r * Math.Sin(0.5 * Math.PI / 180);
+				for (int i = 0; i < fok; i++)
+				{
+					Előre(a);
+					Jobbra(1);
+				}
+			}
+		}
+		public void Ív(float fok, double r)
+		{
+			/*
+				double x;
+				double y;
+				float d = 2 * (float)r;
+				float startangle;
+				float sweepangle;
+				gr.DrawArc(toll, x, y, d, d , startangle, sweepangle );
+			*/
 			throw new NotImplementedException();
 		}
 
-//		private void Bezier()
-		
+
+
+
+		//		private void Bezier()
+
 		private void Frissít()
 		{
-			szülőform.dlx.Text = hely.X.ToString();
-			szülőform.dly.Text = hely.Y.ToString();
-			szülőform.dli.Text = irány.ToString();
-			avatarpb.Location = hely.ToPoint(szülőform.képkeret.Location, w, h);
+			if (állandó_frissítés)
+			{
+				szülőform.dlx.Text = hely.X.ToString();
+				szülőform.dly.Text = hely.Y.ToString();
+				szülőform.dli.Text = irány.ToString();
+				avatarpb.Location = hely.ToPoint(szülőform.képkeret.Location, w, h);
 
-			szülőform.képkeret.Image = szülőform.rajzlap; // innen töltődik be a legújabb változat
+				szülőform.képkeret.Image = szülőform.rajzlap; // innen töltődik be a legújabb változat
 
-			szülőform.Refresh();
+				szülőform.Refresh();
+			}
 		}
 	}
+
+	
 }
