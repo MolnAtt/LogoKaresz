@@ -42,8 +42,8 @@ namespace LogoKaresz
 			this.irány = irány;
 			this.toll = new Pen(Color.Black);
 			this.gr = Graphics.FromImage(szülőform.rajzlap); // formnak itt már lennie kell!
-			this.w = 5;
-			this.h = 5;
+			this.w = 30;
+			this.h = 30;
 			this.rajzole = true;
 			this.varakozas = 0;
 			this.állandó_frissítés = true;
@@ -51,9 +51,16 @@ namespace LogoKaresz
 
 
 			avatarpb = new PictureBox();
-			avatarpb.BackColor = Color.Blue;
+			avatarpb.BackColor = Color.Transparent;
 			avatarpb.Size = new Size(w, h);
+			avatarpb.Image = Properties.Resources.Karesz0;
 			szülőform.Controls.Add(avatarpb);
+			avatarpb.Parent = szülőform.képkeret;
+			/* https://stackoverflow.com/questions/68916508/c-sharp-bitmap-rotate-with-transparent-image
+			 * Hosting controls by a PictureBox does not mean it becomes by default their parent because it is not a container control like a Panel or GroupBox. 
+			 * The parent of the hosted controls remains the parent of the hosting PictureBox itself which is the Form in your case. 
+			 * That's why the inner PictureBox fills the transparent area with the color of its Parent, the Form. 
+			 * Meaning, you need to explicit set the Parent property of the inner PictureBox to the outer one.*/
 			avatarpb.BringToFront();
 
 			Frissít();
@@ -171,19 +178,35 @@ namespace LogoKaresz
 			}
 		}
 
-		public void Kör(double r) // Karesz van a középpontban
+		public void Kör_kerületből(double r)
 		{
-			Előre(r);
-			Jobbra(90.5);
 			double a = 2 * r * Math.Sin(0.5 * Math.PI / 180);
 			for (int i = 0; i < 360; i++)
 			{
 				Előre(a);
 				Jobbra(1);
 			}
-			Balra(90.5);
-			Hátra(r);
 		}
+
+		public void Kör_középpontból(double r) // Karesz van a középpontban
+		{
+			bool rajzolt_e_előtte = rajzole;
+
+			rajzole = false;
+			Előre(r);
+			rajzole = rajzolt_e_előtte;
+
+			Jobbra(90.5);
+
+			Kör_kerületből(r);
+
+			Balra(90.5);
+
+			rajzole = false;
+			Hátra(r);
+			rajzole = rajzolt_e_előtte;
+		}
+
 		public void Ív(int fok, double r, bool frissít_e = false)
 		{
 			using (new Form1.Frissítés(this, frissít_e))
@@ -209,26 +232,51 @@ namespace LogoKaresz
 			throw new NotImplementedException();
 		}
 
-
-
-
 		//		private void Bezier()
 
 		private void Frissít()
 		{
 			if (állandó_frissítés)
 			{
+				avatarpb.Image = rotateImage(Properties.Resources.Karesz0, (float)irány-90);
+
 				szülőform.dlx.Text = hely.X.ToString();
 				szülőform.dly.Text = hely.Y.ToString();
 				szülőform.dli.Text = irány.ToString();
+
+				/* Ez volt jó akkor, amikor az avatarpb Parent-je még a form volt, nem a képkeret * /
 				avatarpb.Location = hely.ToPoint(szülőform.képkeret.Location, w, h);
+				/**/
+
+				/* most, hogy az avatarpb parentje a képkeret, nem kell offset */
+				avatarpb.Location = hely.ToPoint(new Point(0,0), w, h);
+				/**/
 
 				szülőform.képkeret.Image = szülőform.rajzlap; // innen töltődik be a legújabb változat
 
 				szülőform.Refresh();
+
 			}
 		}
-	}
 
-	
+		private Bitmap rotateImage(Bitmap b, float angle)
+		{
+			/*
+			int maxside = (int)(Math.Sqrt(b.Width * b.Width + b.Height * b.Height));			
+			Bitmap returnBitmap = new Bitmap(maxside,maxside);
+			*/
+			Bitmap returnBitmap = new Bitmap(42,42); // azért feleslegesen ne szívassuk a felsővel. A fenti kód arra kell, ha valaki custom képpel akar rajzolni és lusta kiszámolni...
+			using (Graphics g = Graphics.FromImage(returnBitmap))
+			{
+				g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+				g.RotateTransform(angle);
+				g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+				g.DrawImage(b, new Point(0, 0));
+				//b.MakeTransparent();
+			}
+			/*
+			*/
+			return returnBitmap;
+		}
+	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LogoKaresz
@@ -7,19 +8,7 @@ namespace LogoKaresz
 	{
 		void FELADAT()
 		{
-			// defaultkaresz.Kör(100); // bugos! sugár látszik, később megoldjuk!
-
-
-			using (new Rajzol(defaultkaresz, false))
-			{
-				Előre(100);
-			}
-
-			Előre(100);
-
-
+			
 		}
-
-
 	}
 }
