@@ -178,15 +178,7 @@ namespace LogoKaresz
 			}
 		}
 
-		public void Kör_kerületből(double r)
-		{
-			double a = 2 * r * Math.Sin(0.5 * Math.PI / 180);
-			for (int i = 0; i < 360; i++)
-			{
-				Előre(a);
-				Jobbra(1);
-			}
-		}
+		public void Kör_kerületből(double r) => Ív(360, r);
 
 		public void Kör_középpontból(double r) // Karesz van a középpontban
 		{
@@ -196,11 +188,11 @@ namespace LogoKaresz
 			Előre(r);
 			rajzole = rajzolt_e_előtte;
 
-			Jobbra(90.5);
+			Jobbra(90);
 
 			Kör_kerületből(r);
 
-			Balra(90.5);
+			Balra(90);
 
 			rajzole = false;
 			Hátra(r);
@@ -211,12 +203,15 @@ namespace LogoKaresz
 		{
 			using (new Form1.Frissítés(this, frissít_e))
 			{
-				double a = 2 * r * Math.Sin(0.5 * Math.PI / 180);
-				for (int i = 0; i < fok; i++)
+				double a = 2 * r * Math.Tan(Math.PI / 360);
+				Előre(a / 2);
+				for (int i = 0; i < fok - 1; i++)
 				{
-					Előre(a);
 					Jobbra(1);
+					Előre(a);
 				}
+				Jobbra(1);
+				Előre(a / 2);
 			}
 		}
 		public void Ív(float fok, double r)
