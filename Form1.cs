@@ -8,7 +8,7 @@ namespace LogoKaresz
 	{
 		void FELADAT()
 		{
-			
+
 		}
 	}
 }

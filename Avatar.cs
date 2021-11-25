@@ -207,7 +207,7 @@ namespace LogoKaresz
 			rajzole = rajzolt_e_előtte;
 		}
 
-		public void Ív(int fok, double r, bool frissít_e = false)
+		public void Ív(double fok, double r, bool frissít_e = false)
 		{
 			using (new Form1.Frissítés(this, frissít_e))
 			{

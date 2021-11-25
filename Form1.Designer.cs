@@ -41,7 +41,7 @@ namespace LogoKaresz
 		private void Tollat(bool b) => defaultkaresz.Tollat(b);
 		private void Tölt(Color c) => defaultkaresz.Tölt(c);
 
-		private void Ív(int f, double r) => defaultkaresz.Ív(f, r);
+		private void Ív(double f, double r) => defaultkaresz.Ív(f, r);
 		private void startgomb_Click(object sender, EventArgs e)
 		{
 			FELADAT();
