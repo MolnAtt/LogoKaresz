@@ -29,6 +29,7 @@ namespace LogoKaresz
 			}
 		}
 
+		public bool DescartesBenneVan(Bitmap rajzlap) => 0 < X && X < rajzlap.Width && 0 < Y && Y < rajzlap.Height;
 		public Point ToPoint() => new Point((int)Math.Round(X), (int)Math.Round(Y));
 		public Point ToPoint(Point l, int x, int y) => new Point((int)Math.Round(X)+l.X-x/2, (int)Math.Round(Y) + l.Y - y / 2);
 

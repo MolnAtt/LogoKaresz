@@ -25,12 +25,13 @@ namespace LogoKaresz
 		public Form1()
 		{
 			InitializeComponent();
-			rajzlap = new Bitmap(this.Width, this.Height);
+			rajzlap = new Bitmap(képkeret.Width, képkeret.Height);
 
 			defaultkaresz = new Avatar(this, new Pont(400, 400), 90);
 
 		}
 
+		private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
 		private void Előre(double d) => defaultkaresz.Előre(d);
 		private void Hátra(double d) => defaultkaresz.Hátra(d);
 		private void Jobbra(double d) => defaultkaresz.Jobbra(d);

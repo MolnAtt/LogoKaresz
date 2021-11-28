@@ -69,13 +69,18 @@ namespace LogoKaresz
 		public void Lépj(double t)
 		{
 			Pont hollesz = hely - new Pont(irány, t, "polár"); // ez most polárkoordinátás kellene legyen!
-			if (rajzole)
+			if (hollesz.DescartesBenneVan(szülőform.rajzlap))
 			{
-				gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
+				if (rajzole)
+				{
+					gr.DrawLine(toll, hely.ToPoint(), hollesz.ToPoint());
+				}
+				hely = hollesz;
+				Thread.Sleep(varakozas);
+				Frissít();
 			}
-			hely = hollesz;
-			Thread.Sleep(varakozas);
-			Frissít();
+			else
+				MessageBox.Show("Au. Ez a pálya vége.");
 		}
 		public void Előre(double t) { Lépj(t); }
 		public void Hátra(double t) { Lépj(-t); }
@@ -83,7 +88,7 @@ namespace LogoKaresz
 		public void Fordulj(double f) { irány -= f; irány %= 360; Frissít(); }
 		public void Jobbra(double f) { Fordulj(-f); }
 		public void Balra(double f) { Fordulj(f); }
-
+		public bool Kilépek_e_a_pályáról(double t) => !(hely - new Pont(irány, t, "polár")).DescartesBenneVan(szülőform.rajzlap);
 		public void Pihi(int idő) { Thread.Sleep(idő); }
 
 		// Tollat(fel)
@@ -94,9 +99,15 @@ namespace LogoKaresz
 		public void Tölt(Color mire)
 		{
 			Point h = this.hely.ToPoint();
+			Color mit = szülőform.rajzlap.GetPixel(h.X, h.Y);
+			if (mit.ToArgb() == mire.ToArgb())
+			{
+				MessageBox.Show($"Mit színezzek ezen? Ez már {mire} színű.");
+				return;
+			}
 			//Rekurzív_kitöltés(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
-			//Kitöltés_szélességi_bejárással(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
-			Kitöltés_mélységi_bejárással(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			Kitöltés_szélességi_bejárással(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
+			//Kitöltés_mélységi_bejárással(h.X, h.Y, mit, mire);
 			Frissít();
 		}
 
@@ -108,28 +119,35 @@ namespace LogoKaresz
 
 			Point p;
 			Point[] szomszédok;
-			while (tennivalók.Count != 0)
+			try
 			{
-				p = tennivalók.Dequeue();
-				szomszédok = new Point[4] 
-					{ 
-						new Point(p.X, p.Y + 1), 
-						new Point(p.X - 1, p.Y), 
-						new Point(p.X, p.Y - 1), 
-						new Point(p.X + 1, p.Y) 
-					};
-
-				// szomszédvizsgálat
-				foreach (Point sz in szomszédok)
+				while (tennivalók.Count != 0)
 				{
-					if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
-						0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
-						0 <= sz.Y && sz.Y < szülőform.rajzlap.Height )
+					p = tennivalók.Dequeue();
+					szomszédok = new Point[4]
+						{
+						new Point(p.X, p.Y + 1),
+						new Point(p.X - 1, p.Y),
+						new Point(p.X, p.Y - 1),
+						new Point(p.X + 1, p.Y)
+						};
+
+					// szomszédvizsgálat
+					foreach (Point sz in szomszédok)
 					{
-						szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
-						tennivalók.Enqueue(sz);
+						if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
+							0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
+							0 <= sz.Y && sz.Y < szülőform.rajzlap.Height)
+						{
+							szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
+							tennivalók.Enqueue(sz);
+						}
 					}
 				}
+			}
+			catch (System.ArgumentOutOfRangeException)
+			{
+				MessageBox.Show("Jaj... Ez kifolyt a pályáról...");
 			}
 		}
 		private void Kitöltés_mélységi_bejárással(int x, int y, Color mit, Color mire)
@@ -140,31 +158,39 @@ namespace LogoKaresz
 
 			Point p;
 			Point[] szomszédok;
-			while (tennivalók.Count != 0)
+			try
 			{
-				p = tennivalók.Pop();
-				szomszédok = new Point[4]
-					{
+				while (tennivalók.Count != 0)
+				{
+					p = tennivalók.Pop();
+					szomszédok = new Point[4]
+						{
 						new Point(p.X, p.Y + 1),
 						new Point(p.X - 1, p.Y),
 						new Point(p.X, p.Y - 1),
 						new Point(p.X + 1, p.Y)
-					};
+						};
 
-				// szomszédvizsgálat
-				foreach (Point sz in szomszédok)
-				{
-					if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
-						0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
-						0 <= sz.Y && sz.Y < szülőform.rajzlap.Height)
+					// szomszédvizsgálat
+					foreach (Point sz in szomszédok)
 					{
-						szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
-						tennivalók.Push(sz);
+						if (szülőform.rajzlap.GetPixel(sz.X, sz.Y) == mit &&
+							0 <= sz.X && sz.Y < szülőform.rajzlap.Width &&
+							0 <= sz.Y && sz.Y < szülőform.rajzlap.Height)
+						{
+							szülőform.rajzlap.SetPixel(sz.X, sz.Y, mire);
+							tennivalók.Push(sz);
+						}
 					}
 				}
 			}
-		}
-		private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire) // Nem jó sajnos, stack overflow :(
+			catch (System.ArgumentOutOfRangeException)
+			{
+				MessageBox.Show("Jaj... Ez kifolyt a pályáról...");
+			}
+
+}
+private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire) // Nem jó sajnos, stack overflow :(
 		{
 			if (szülőform.rajzlap.GetPixel(x, y) == mit &&
 				0 <= x && x < szülőform.rajzlap.Width &&
