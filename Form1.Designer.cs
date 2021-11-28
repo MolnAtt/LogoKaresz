@@ -28,7 +28,8 @@ namespace LogoKaresz
 			rajzlap = new Bitmap(képkeret.Width, képkeret.Height);
 
 			defaultkaresz = new Avatar(this, new Pont(400, 400), 90);
-
+            timer1.Interval = 5;
+            timer2.Interval = 5;
 		}
 
 		private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
@@ -70,11 +71,17 @@ namespace LogoKaresz
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.képkeret = new System.Windows.Forms.PictureBox();
             this.startgomb = new System.Windows.Forms.Button();
             this.dlx = new System.Windows.Forms.Label();
             this.dly = new System.Windows.Forms.Label();
             this.dli = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.képkeret)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +89,7 @@ namespace LogoKaresz
             // 
             this.képkeret.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.képkeret.Location = new System.Drawing.Point(8, 7);
-            this.képkeret.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.képkeret.Margin = new System.Windows.Forms.Padding(2);
             this.képkeret.Name = "képkeret";
             this.képkeret.Size = new System.Drawing.Size(742, 446);
             this.képkeret.TabIndex = 0;
@@ -92,7 +99,7 @@ namespace LogoKaresz
             // startgomb
             // 
             this.startgomb.Location = new System.Drawing.Point(754, 7);
-            this.startgomb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.startgomb.Margin = new System.Windows.Forms.Padding(2);
             this.startgomb.Name = "startgomb";
             this.startgomb.Size = new System.Drawing.Size(86, 43);
             this.startgomb.TabIndex = 1;
@@ -130,17 +137,59 @@ namespace LogoKaresz
             this.dli.TabIndex = 4;
             this.dli.Text = "label1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(763, 165);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 32);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "B";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
+            this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button1_MouseUp);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(798, 165);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 32);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "J";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
+            this.button2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button2_MouseUp);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(777, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "forgás";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 459);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dli);
             this.Controls.Add(this.dly);
             this.Controls.Add(this.dlx);
             this.Controls.Add(this.startgomb);
             this.Controls.Add(this.képkeret);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.képkeret)).EndInit();
@@ -158,7 +207,20 @@ namespace LogoKaresz
 		public System.Windows.Forms.Label dli;
 
 		private void képkeret_Click(object sender, EventArgs e) => defaultkaresz.Teleport(((MouseEventArgs)e).Location);
-		public class Frissítés : IDisposable
+        private void button1_MouseDown(object sender, MouseEventArgs e) => timer1.Start();
+        private void button2_MouseDown(object sender, MouseEventArgs e) => timer2.Start();
+        private void button1_MouseUp(object sender, MouseEventArgs e) => timer1.Stop();
+        private void button2_MouseUp(object sender, MouseEventArgs e) => timer2.Stop();
+        private void timer1_Tick(object sender, EventArgs e) => defaultkaresz.Balra(1);
+        private void timer2_Tick(object sender, EventArgs e) => defaultkaresz.Jobbra(1);
+
+        private Button button1;
+        private Button button2;
+        private Label label1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
+
+        public class Frissítés : IDisposable
 		{
 			bool fr_regi;
 			Avatar a;
