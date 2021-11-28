@@ -11,5 +11,7 @@ namespace LogoKaresz
 		{
 
 		}
-	}
+
+
+    }
 }

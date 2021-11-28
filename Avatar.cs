@@ -82,6 +82,7 @@ namespace LogoKaresz
 			else
 				MessageBox.Show("Au. Ez a pálya vége.");
 		}
+		public void Teleport(Point loc) { hely = new Pont(loc); Frissít(); }
 		public void Előre(double t) { Lépj(t); }
 		public void Hátra(double t) { Lépj(-t); }
 
