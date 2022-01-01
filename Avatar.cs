@@ -17,7 +17,7 @@ namespace LogoKaresz
 		private double irány;
 		Form1 szülőform;
 		private PictureBox avatarpb;
-		Pen toll;
+		public Pen toll;
 		Graphics gr;
 		int w;
 		int h;
@@ -35,11 +35,36 @@ namespace LogoKaresz
 		}
 
 
+
+		static Color[] színek = ((KnownColor[])Enum.GetValues(typeof(KnownColor))).Select(x => Color.FromKnownColor((KnownColor)x)).ToArray();
+		static Color[] erős_színek_fehérre = new Color[]
+			{ Color.Aqua, Color.Aquamarine, Color.Black, Color.Blue, Color.BlueViolet, Color.Brown,
+				Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral,
+				Color.CornflowerBlue, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan,
+				Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta,
+				Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon,
+				Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet,
+				Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.ForestGreen, Color.Gainsboro,
+				Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.HotPink, Color.IndianRed,
+				Color.Indigo, Color.Khaki, Color.LawnGreen, Color.LightBlue, Color.LightCoral, Color.LightGreen,
+				Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray,
+				Color.LightSteelBlue, Color.Lime, Color.LimeGreen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue,
+				Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen,
+				Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MistyRose, Color.Moccasin,
+				Color.NavajoWhite, Color.Navy, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid,
+				Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PeachPuff,
+				Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.Red, Color.RosyBrown,
+				Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.Sienna,
+				Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.SpringGreen, Color.SteelBlue,
+				Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.Yellow,
+				Color.YellowGreen
+			};
 		public Avatar(Form1 szülőform, Pont hely, double irány)
 		{
 			this.szülőform = szülőform;
 			this.hely = hely;
 			this.irány = irány;
+
 			this.toll = new Pen(Color.Black);
 			this.gr = Graphics.FromImage(szülőform.rajzlap); // formnak itt már lennie kell!
 			this.w = 30;
@@ -65,6 +90,10 @@ namespace LogoKaresz
 
 			Frissít();
 		}
+		// setter függvények, bár a toll is public. Az esetleges logóba való fordítóprogramok miatt lenne jó.
+		public void Tollszín(Color szín) => toll.Color = szín;
+		public void Tollszín(int i) => toll.Color = erős_színek_fehérre[i];
+		public void Tollvastagság(float v) => toll.Width = v;
 
 		public void Lépj(double t)
 		{

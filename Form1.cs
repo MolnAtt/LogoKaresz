@@ -7,12 +7,16 @@ namespace LogoKaresz
 {
 	public partial class Form1 : Form
 	{
+		/* Függvények */
+
+
+		/* Függvények vége */
 		void FELADAT()
 		{
+			/* Ezt indítja a START gomb! */
+
+
 
 		}
-
-
-
     }
 }

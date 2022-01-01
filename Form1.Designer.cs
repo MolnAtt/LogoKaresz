@@ -14,9 +14,6 @@ namespace LogoKaresz
 	partial class Form1
 	{
 		public Bitmap rajzlap;
-		const bool fel = false;
-		const bool le = true;
-		private static Avatar defaultkaresz;
 
 		/// <summary>
 		/// Required designer variable.
@@ -32,18 +29,6 @@ namespace LogoKaresz
             timer2.Interval = 5;
 		}
 
-		private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
-		private void Előre(double d) => defaultkaresz.Előre(d);
-		private void Hátra(double d) => defaultkaresz.Hátra(d);
-		private void Jobbra(double d) => defaultkaresz.Jobbra(d);
-		private void Balra(double d) => defaultkaresz.Balra(d);
-		private void Fordulj(double d) => defaultkaresz.Fordulj(d);
-		private void Lépj(double d) => defaultkaresz.Lépj(d);
-		private void Pihi(int i) => defaultkaresz.Pihi(i);
-		private void Tollat(bool b) => defaultkaresz.Tollat(b);
-		private void Tölt(Color c) => defaultkaresz.Tölt(c);
-
-		private void Ív(double f, double r) => defaultkaresz.Ív(f, r);
 		private void startgomb_Click(object sender, EventArgs e)
 		{
 			FELADAT();
@@ -219,46 +204,6 @@ namespace LogoKaresz
         private Label label1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
-
-        public class Frissítés : IDisposable
-		{
-			bool fr_regi;
-			Avatar a;
-			public Frissítés(Avatar a, bool fr)
-			{
-				this.a = a;
-				fr_regi = a.Állandó_frissítés;
-				a.Állandó_frissítés = fr;
-			}
-
-			public Frissítés(bool fr) : this(defaultkaresz, fr) { }
-
-			public void Dispose()
-			{
-				a.Állandó_frissítés = fr_regi;
-				GC.SuppressFinalize(this);
-			}
-		}
-
-		public class Rajzol : IDisposable
-		{
-			bool rajzole_regi;
-			Avatar a;
-			public Rajzol(Avatar a, bool rajzoljone)
-			{
-				this.a = a;
-				rajzole_regi = a.rajzole;
-				a.Tollat(rajzoljone);
-			}
-
-			public Rajzol(bool r) : this(defaultkaresz, r) { }
-
-			public void Dispose()
-			{
-				a.Tollat(rajzole_regi);
-				GC.SuppressFinalize(this);
-			}
-		}
 	}
 }
 
