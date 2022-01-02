@@ -9,6 +9,8 @@ namespace LogoKaresz
         const bool le = true;
         private static Avatar defaultkaresz;
 
+
+
         private double Irány { get => defaultkaresz.Irány; }
         private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
         static private bool Kilépek_e_a_pályáról(Avatar a, double d) => a.Kilépek_e_a_pályáról(d);
@@ -40,6 +42,15 @@ namespace LogoKaresz
         private void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
         static private void Ív(Avatar a, (double , double ) fr) => a.Ív(fr.Item1, fr.Item2);
         static private void Ív(Avatar a, double f, double r) => a.Ív(f, r);
+        static void Ismétlés(int db, Action a) { for (int i = 0; i < db; i++) a(); } // Iteráció ciklusváltozó nélkül. Logoba való fordítás végett.
+        /* Például
+         
+            Ismétlés(4, delegate () 
+			{
+				Előre(mérték);
+				Jobbra(90);
+			});
+         */
         public class Frissítés : IDisposable
         {
             Környezet<bool, bool> k;
