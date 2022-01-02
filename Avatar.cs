@@ -14,7 +14,7 @@ namespace LogoKaresz
 	public class Avatar
 	{
 		private Pont hely;
-		private double irány;
+		public double irány;
 		Form1 szülőform;
 		private PictureBox avatarpb;
 		public Pen toll;

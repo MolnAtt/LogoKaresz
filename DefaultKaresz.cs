@@ -9,7 +9,7 @@ namespace LogoKaresz
         const bool le = true;
         private static Avatar defaultkaresz;
 
-
+        private double irány { get => defaultkaresz.irány; }
         private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
         static private bool Kilépek_e_a_pályáról(Avatar a, double d) => a.Kilépek_e_a_pályáról(d);
         private void Előre(double d) => defaultkaresz.Előre(d);
@@ -30,7 +30,6 @@ namespace LogoKaresz
         static private void Tollat(Avatar a, bool b) => a.Tollat(b);
         private void Tölt(Color c) => defaultkaresz.Tölt(c);
         static private void Tölt(Avatar a, Color c) => a.Tölt(c);
-
         void Tollszín(Color c) => defaultkaresz.Tollszín(c);
         static void Tollszín(Avatar a, Color c) => a.Tollszín(c);
         void Tollszín(int i) => defaultkaresz.Tollszín(i);
