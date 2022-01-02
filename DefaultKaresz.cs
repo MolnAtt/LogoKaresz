@@ -9,7 +9,7 @@ namespace LogoKaresz
         const bool le = true;
         private static Avatar defaultkaresz;
 
-        private double irány { get => defaultkaresz.irány; }
+        private double Irány { get => defaultkaresz.Irány; }
         private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
         static private bool Kilépek_e_a_pályáról(Avatar a, double d) => a.Kilépek_e_a_pályáról(d);
         private void Előre(double d) => defaultkaresz.Előre(d);
