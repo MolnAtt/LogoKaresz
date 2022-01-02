@@ -31,8 +31,8 @@ namespace LogoKaresz
         static private void Pihi(Avatar a, int i) => a.Pihi(i);
         private void Tollat(bool b) => defaultkaresz.Tollat(b);
         static private void Tollat(Avatar a, bool b) => a.Tollat(b);
-        private void Tölt(Color c) => defaultkaresz.Tölt(c);
-        static private void Tölt(Avatar a, Color c) => a.Tölt(c);
+        private void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
+        static private void Tölt(Avatar a, Color c, bool beszólós = true) => a.Tölt(c, beszólós);
         void Tollszín(Color c) => defaultkaresz.Tollszín(c);
         static void Tollszín(Avatar a, Color c) => a.Tollszín(c);
         void Tollszín(int i) => defaultkaresz.Tollszín(i);

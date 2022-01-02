@@ -127,13 +127,14 @@ namespace LogoKaresz
 		// fel és le igazából logikai konstansok lesznek -- ebből a felhasználó semmit nem fog látni (mint Karesznél a jobbra és a balra!)
 		public void Tollat(bool le) { rajzole = le; }
 
-		public void Tölt(Color mire)
+		public void Tölt(Color mire, bool beszólós = true)
 		{
 			Point h = this.hely.ToPoint();
 			Color mit = szülőform.rajzlap.GetPixel(h.X, h.Y);
 			if (mit.ToArgb() == mire.ToArgb())
 			{
-				MessageBox.Show($"Mit színezzek ezen? Ez már {mire} színű.");
+				if (beszólós)
+					MessageBox.Show($"Mit színezzek ezen? Ez már {mire} színű.");
 				return;
 			}
 			//Rekurzív_kitöltés(h.X, h.Y, szülőform.rajzlap.GetPixel(h.X, h.Y), mire);
