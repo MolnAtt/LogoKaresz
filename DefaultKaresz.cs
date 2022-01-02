@@ -10,6 +10,7 @@ namespace LogoKaresz
         private static Avatar defaultkaresz;
 
 
+        int várakozás { get => defaultkaresz.varakozas; set => defaultkaresz.varakozas = value; }
 
         private double Irány { get => defaultkaresz.Irány; }
         private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);

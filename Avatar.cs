@@ -23,7 +23,7 @@ namespace LogoKaresz
 		int w;
 		int h;
 		public bool rajzole;
-		int varakozas;
+		public int varakozas;
 		private bool állandó_frissítés;
 		public bool Állandó_frissítés
 		{ 
