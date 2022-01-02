@@ -15,8 +15,6 @@ namespace LogoKaresz
 		{
 			/* Ezt indítja a START gomb! */
 
-
-
 		}
-    }
+	}
 }
