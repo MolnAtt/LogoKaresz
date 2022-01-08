@@ -13,9 +13,15 @@ namespace LogoKaresz
 {
 	public class Avatar
 	{
+		
 		private Pont hely;
 		private double irány;
-		public double Irány { get => 180 - irány; }
+		double fokpoz(double i) => i < 0 ? i + 360 : i;
+		double fokelőjeles(double i) => i > 180 ? i-360 : i;
+		public double Irány { get => fokpoz(irány - 90); set => irány = value + 90; }
+		public double Előjeles_Irány { get => fokelőjeles(Irány); set => Irány = value; }
+		public double Matekos_Irány { get => fokpoz(180-irány); set => irány = 180-value; }
+		public double Matekos_Előjeles_Irány { get => fokelőjeles(Matekos_Irány); set => Matekos_Irány = value; }
 		Form1 szülőform;
 		private PictureBox avatarpb;
 		public Pen toll;
@@ -295,7 +301,7 @@ private void Rekurzív_kitöltés(int x, int y, Color mit, Color mire) // Nem j�
 
 				szülőform.dlx.Text = hely.X.ToString();
 				szülőform.dly.Text = hely.Y.ToString();
-				szülőform.dli.Text = irány.ToString();
+				szülőform.dli.Text = Előjeles_Irány.ToString();
 
 				/* Ez volt jó akkor, amikor az avatarpb Parent-je még a form volt, nem a képkeret * /
 				avatarpb.Location = hely.ToPoint(szülőform.képkeret.Location, w, h);

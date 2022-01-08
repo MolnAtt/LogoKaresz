@@ -5,44 +5,81 @@ namespace LogoKaresz
 {
     partial class Form1
     {
+        static Avatar defaultkaresz;
+        # region konstansok
         const bool fel = false;
         const bool le = true;
-        private static Avatar defaultkaresz;
+        const int észak = 0;
+        const int kelet = 90;
+        const int dél = 180;
+        const int nyugat = 270;
+        Point közép { get => new Point(képkeret.Width / 2, képkeret.Height / 2); }
+        #endregion
 
+        #region definiált defaultkaresz-tulajdonságok
+        double Irány { get => defaultkaresz.Irány; }
+        double Előjeles_Irány { get => defaultkaresz.Előjeles_Irány; }
+        double Matekos_Irány { get => defaultkaresz.Matekos_Irány; }
+        double Matekos_Előjeles_Irány { get => defaultkaresz.Matekos_Előjeles_Irány; }
+        int Várakozás { get => defaultkaresz.varakozas; set => defaultkaresz.varakozas = value; }
+        #endregion
+        
+        #region Teleport
+        bool teleportált_e_már = false;
+        void Teleport(int x, int y, double ir = észak) => Teleport(new Point(x, y), ir);
+        void Teleport(double x, double y, double ir = észak) => Teleport(new Pont(x, y), ir);
+        void Teleport(Pont p, double ir = észak) => Teleport(p.ToPoint(), ir);
+        void Teleport(Point p, double ir = észak)
+        {
+            if (teleportált_e_már)
+                System.Windows.Forms.MessageBox.Show("Csak egyszer lehet teleportálni!");
+            else
+            {
+                defaultkaresz.Irány = ir;
+                defaultkaresz.Teleport(p);
+                teleportált_e_már = true;
+            }
+        }
+        #endregion
 
-        int várakozás { get => defaultkaresz.varakozas; set => defaultkaresz.varakozas = value; }
-
-        private double Irány { get => defaultkaresz.Irány; }
-        private bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
-        static private bool Kilépek_e_a_pályáról(Avatar a, double d) => a.Kilépek_e_a_pályáról(d);
-        private void Előre(double d) => defaultkaresz.Előre(d);
-        static private void Előre(Avatar a, double d) => a.Előre(d);
-        private void Hátra(double d) => defaultkaresz.Hátra(d);
-        static private void Hátra(Avatar a, double d) => a.Hátra(d);
-        private void Jobbra(double d) => defaultkaresz.Jobbra(d);
-        static private void Jobbra(Avatar a, double d) => a.Jobbra(d);
-        private void Balra(double d) => defaultkaresz.Balra(d);
-        static private void Balra(Avatar a, double d) => a.Balra(d);
-        private void Fordulj(double d) => defaultkaresz.Fordulj(d);
-        static private void Fordulj(Avatar a, double d) => a.Fordulj(d);
-        private void Lépj(double d) => defaultkaresz.Lépj(d);
-        static private void Lépj(Avatar a, double d) => a.Lépj(d);
-        private void Pihi(int i) => defaultkaresz.Pihi(i);
-        static private void Pihi(Avatar a, int i) => a.Pihi(i);
-        private void Tollat(bool b) => defaultkaresz.Tollat(b);
-        static private void Tollat(Avatar a, bool b) => a.Tollat(b);
-        private void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
-        static private void Tölt(Avatar a, Color c, bool beszólós = true) => a.Tölt(c, beszólós);
-        void Tollszín(Color c) => defaultkaresz.Tollszín(c);
+        #region statikus függvényváltozatok környezetekhez
+        static bool Kilépek_e_a_pályáról(Avatar a, double d) => a.Kilépek_e_a_pályáról(d);
+        static void Előre(Avatar a, double d) => a.Előre(d);
+        static void Hátra(Avatar a, double d) => a.Hátra(d);
+        static void Jobbra(Avatar a, double d) => a.Jobbra(d);
+        static void Balra(Avatar a, double d) => a.Balra(d);
+        static void Fordulj(Avatar a, double d) => a.Fordulj(d);
+        static void Lépj(Avatar a, double d) => a.Lépj(d);
+        static void Pihi(Avatar a, int i) => a.Pihi(i);
+        static void Tollat(Avatar a, bool b) => a.Tollat(b);
         static void Tollszín(Avatar a, Color c) => a.Tollszín(c);
-        void Tollszín(int i) => defaultkaresz.Tollszín(i);
         static void Tollszín(Avatar a, int i) => a.Tollszín(i);
-        void Tollvastagság(float v) => defaultkaresz.Tollvastagság(v);
         static void Tollvastagság(Avatar a, float v) => a.Tollvastagság(v);
-        private void Ív(double f, double r) => defaultkaresz.Ív(f, r);
-        private void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
-        static private void Ív(Avatar a, (double , double ) fr) => a.Ív(fr.Item1, fr.Item2);
-        static private void Ív(Avatar a, double f, double r) => a.Ív(f, r);
+        static void Tölt(Avatar a, Color c, bool beszólós = true) => a.Tölt(c, beszólós);
+        static void Ív(Avatar a, (double , double ) fr) => a.Ív(fr.Item1, fr.Item2);
+        static void Ív(Avatar a, double f, double r) => a.Ív(f, r);
+        #endregion
+
+        #region deOOP-függvények (formmetódusváltozatok)
+        
+        bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
+        void Előre(double d) => defaultkaresz.Előre(d);
+        void Hátra(double d) => defaultkaresz.Hátra(d);
+        void Jobbra(double d) => defaultkaresz.Jobbra(d);
+        void Balra(double d) => defaultkaresz.Balra(d);
+        void Fordulj(double d) => defaultkaresz.Fordulj(d);
+        void Lépj(double d) => defaultkaresz.Lépj(d);
+        void Pihi(int i) => defaultkaresz.Pihi(i);
+        void Tollat(bool b) => defaultkaresz.Tollat(b);
+        void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
+        void Tollszín(Color c) => defaultkaresz.Tollszín(c);
+        void Tollszín(int i) => defaultkaresz.Tollszín(i);
+        void Tollvastagság(float v) => defaultkaresz.Tollvastagság(v);
+        void Ív(double f, double r) => defaultkaresz.Ív(f, r);
+        void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
+        #endregion
+
+        #region "vezérlési szerkezetek" delegáltakkal
         static void Ismétlés(int db, Action a) { for (int i = 0; i < db; i++) a(); } // Iteráció ciklusváltozó nélkül. Logoba való fordítás végett.
         /* Például
          
@@ -52,6 +89,10 @@ namespace LogoKaresz
 				Jobbra(90);
 			});
          */
+        #endregion
+
+        #region "környezetek" classokkal
+
         public class Frissítés : IDisposable
         {
             Környezet<bool, bool> k;
@@ -175,5 +216,16 @@ namespace LogoKaresz
             }
 
          */
+        #endregion
+
+        #region szövegkezelő függvények (funkcionális logo-fordításhoz)
+        char első(string s) => s[0];
+        string elsőnélküli(string s) => üres(s) ? "" : s.Substring(1);
+        string utolsónélküli(string s) => s.Substring(0, s.Length - 1);
+        bool üres(string s) => s.Length == 0;
+        bool eleme(char e, string s) => s.Contains(e.ToString());
+        string utolsónak(string u, string s) => s + u;
+        string elsőnek(string u, string s) => u + s;
+        #endregion
     }
 }
