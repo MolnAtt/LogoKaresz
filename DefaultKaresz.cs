@@ -77,6 +77,24 @@ namespace LogoKaresz
         void Tollvastagság(float v) => defaultkaresz.Tollvastagság(v);
         void Ív(double f, double r) => defaultkaresz.Ív(f, r);
         void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
+
+        /// <summary>
+		/// Karesz egy másodrendű Bezier-görbét követve mozog. 
+		/// </summary>
+		/// <param name="ilyen_erővel_indul"></param>
+		/// <param name="erre_néz_érkezéskor"></param>
+		/// <param name="ilyen_erővel_érkezik"></param>
+		/// <param name="az_érkezési_pont_jelenleg_ilyen_irányban_van"></param>
+		/// <param name="az_érkezési_pont_ilyen_messze_van"></param>
+		public void Bezier(double ilyen_erővel_indul,
+                        double erre_néz_érkezéskor,
+                        double ilyen_erővel_érkezik,
+                        double az_érkezési_pont_jelenleg_ilyen_irányban_van,
+                        double az_érkezési_pont_ilyen_messze_van, 
+                        bool kontrolpont = false,
+                        bool kontrolszakasz = false
+                        ) => defaultkaresz.Bezier(ilyen_erővel_indul, erre_néz_érkezéskor, ilyen_erővel_érkezik, az_érkezési_pont_jelenleg_ilyen_irányban_van, az_érkezési_pont_ilyen_messze_van, kontrolpont, kontrolszakasz);
+
         #endregion
 
         #region "vezérlési szerkezetek" delegáltakkal
