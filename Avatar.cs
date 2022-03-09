@@ -339,8 +339,61 @@ namespace LogoKaresz
 				MessageBox.Show("Az érkezési pont a pályán kívül helyezkedne el!");
 		}
 
+		private Pont Vászon_koordinátarendszerébe(Pont cél) => hely - cél.Forgatása_az_origó_körül(Előjeles_Irány).Tükrözése_az_y_tengelyre();
 
-		private void Frissít()
+		/// <summary>
+		/// Egy másodrendű Bezier-görbét 4 pont határoz meg. A kezdőpont, az 1-2. kontrolpontok és a végpont.
+		/// A kezdőpont itt Karesz, a kontrolpontok és a végpont pedig a megfelelő pontok -- Karesz koordinátarendszerében felírva.
+		/// Karesz koordinátarendszere az a jobbsodrású koordinátarendszer, amelyben Karesz az origó
+		/// </summary>
+		/// <param name="erre_indul"></param>
+		/// <param name="erről_érkezik"></param>
+		/// <param name="cél"></param>
+		/// <param name="kontrolpont"></param>
+		/// <param name="kontrolszakasz"></param>
+		public void Bezier_3_pontos(
+						(double, double) erre_indul,
+						(double, double) erről_érkezik,
+						(double, double) cél,
+						bool kontrolpont = false,
+						bool kontrolszakasz = false
+						) => Bezier_3_pontos(new Pont(erre_indul), new Pont(erről_érkezik), new Pont(cél), kontrolpont, kontrolszakasz);
+		public void Bezier_3_pontos(
+						Pont erre_indul, Pont erről_érkezik, Pont cél,
+						bool kontrolpont = false,
+						bool kontrolszakasz = false
+						)
+		{
+			Pont hollesz = Vászon_koordinátarendszerébe(cél);
+
+			if (hollesz.DescartesBenneVan(szülőform.rajzlap))
+			{
+				Pont cp1 = Vászon_koordinátarendszerébe(erre_indul);
+				Pont cp2 = Vászon_koordinátarendszerébe(erről_érkezik);
+				if (rajzole)
+				{
+					gr.DrawBezier(toll, hely.ToPoint(), cp1.ToPoint(), cp2.ToPoint(), hollesz.ToPoint());
+				}
+				if (kontrolszakasz)
+				{
+					Kontrolszakasz(hely, cp1, Color.FromArgb(64, 0, 0, 255));
+					Kontrolszakasz(cp2, hollesz, Color.FromArgb(64, 0, 0, 255));
+				}
+				if (kontrolpont)
+				{
+					Kontrolpont(cp1, Color.LightGreen);
+					Kontrolpont(cp2, Color.Red);
+				}
+				hely = hollesz;
+				Thread.Sleep(varakozas);
+				Frissít();
+			}
+			else
+				MessageBox.Show("Az érkezési pont a pályán kívül helyezkedne el!");
+		}
+
+
+        private void Frissít()
 		{
 			if (állandó_frissítés)
 			{
