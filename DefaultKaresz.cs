@@ -55,6 +55,7 @@ namespace LogoKaresz
         static void Tollszín(Avatar a, Color c) => a.Tollszín(c);
         static void Tollszín(Avatar a, int i) => a.Tollszín(i);
         static void Tollvastagság(Avatar a, float v) => a.Tollvastagság(v);
+        static Color Milyen_szín_van_itt(Avatar a) => a.Milyen_szín_van_itt();
         static void Tölt(Avatar a, Color c, bool beszólós = true) => a.Tölt(c, beszólós);
         static void Ív(Avatar a, (double , double ) fr) => a.Ív(fr.Item1, fr.Item2);
         static void Ív(Avatar a, double f, double r) => a.Ív(f, r);
@@ -71,6 +72,7 @@ namespace LogoKaresz
         void Lépj(double d) => defaultkaresz.Lépj(d);
         void Pihi(int i) => defaultkaresz.Pihi(i);
         void Tollat(bool b) => defaultkaresz.Tollat(b);
+        Color Milyen_szín_van_itt() => defaultkaresz.Milyen_szín_van_itt();
         void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
         void Tollszín(Color c) => defaultkaresz.Tollszín(c);
         void Tollszín(int i) => defaultkaresz.Tollszín(i);
