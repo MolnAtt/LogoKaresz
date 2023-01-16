@@ -267,14 +267,15 @@ namespace LogoKaresz
 		{
 			using (new Form1.Frissítés(this, frissít_e))
 			{
+				int egyseg = Math.Sign(fok);
 				double a = 2 * r * Math.Tan(Math.PI / 360);
 				Előre(a / 2);
-				for (int i = 0; i < fok - 1; i++)
+				for (int i = 0; i < Math.Abs(fok) - 1; i++)
 				{
-					Jobbra(1);
+					Jobbra(egyseg);
 					Előre(a);
 				}
-				Jobbra(1);
+				Jobbra(egyseg);
 				Előre(a / 2);
 			}
 		}

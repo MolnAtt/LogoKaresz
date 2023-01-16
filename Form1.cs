@@ -15,6 +15,8 @@ namespace LogoKaresz
 		{
 			/* Ezt indítja a START gomb! */
 			// Teleport(közép.X, közép.Y+150, észak);
+
+			Ív(90, 100);
 		}
 	}
 }
