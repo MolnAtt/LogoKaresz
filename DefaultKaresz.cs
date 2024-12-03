@@ -168,7 +168,7 @@ namespace LogoKaresz
 		/// <param name="ilyen_erővel_érkezik"></param>
 		/// <param name="az_érkezési_pont_jelenleg_ilyen_irányban_van"></param>
 		/// <param name="az_érkezési_pont_ilyen_messze_van"></param>
-		public void Bezier(double ilyen_erővel_indul,
+		void Bezier(double ilyen_erővel_indul,
                         double erre_néz_érkezéskor,
                         double ilyen_erővel_érkezik,
                         double az_érkezési_pont_jelenleg_ilyen_irányban_van,
@@ -176,14 +176,14 @@ namespace LogoKaresz
                         bool kontrolpont = false,
                         bool kontrolszakasz = false
                         ) => defaultkaresz.Bezier(ilyen_erővel_indul, erre_néz_érkezéskor, ilyen_erővel_érkezik, az_érkezési_pont_jelenleg_ilyen_irányban_van, az_érkezési_pont_ilyen_messze_van, kontrolpont, kontrolszakasz);
-        public void Bezier_3_pontos(
+        void Bezier_3_pontos(
                         (double, double) erre_indul, 
                         (double, double) erről_érkezik, 
                         (double, double) cél,
                         bool kontrolpont = false,
                         bool kontrolszakasz = false
                         ) => defaultkaresz.Bezier_3_pontos(erre_indul, erről_érkezik, cél, kontrolpont, kontrolszakasz);
-        public void Bezier_3_pontos(
+        void Bezier_3_pontos(
                         Pont erre_indul, Pont erről_érkezik, Pont cél,
                         bool kontrolpont = false,
                         bool kontrolszakasz = false
