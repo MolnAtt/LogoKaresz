@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LogoKaresz
 {
@@ -59,26 +60,105 @@ namespace LogoKaresz
         static void Tölt(Avatar a, Color c, bool beszólós = true) => a.Tölt(c, beszólós);
         static void Ív(Avatar a, (double , double ) fr) => a.Ív(fr.Item1, fr.Item2);
         static void Ív(Avatar a, double f, double r) => a.Ív(f, r);
-        #endregion
+		#endregion
 
-        #region deOOP-függvények (formmetódusváltozatok)
-        
-        bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
-        void Előre(double d) => defaultkaresz.Előre(d);
-        void Hátra(double d) => defaultkaresz.Hátra(d);
-        void Jobbra(double d) => defaultkaresz.Jobbra(d);
-        void Balra(double d) => defaultkaresz.Balra(d);
+		#region deOOP-függvények (formmetódusváltozatok)
+
+		/// <summary>
+		///     megmondja, hogy d hosszú előremenés után Karesz kilépne-e a pályáról.
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns>logikai érték, hogy kilép-e a pályáról?</returns>
+		bool Kilépek_e_a_pályáról(double d) => defaultkaresz.Kilépek_e_a_pályáról(d);
+		/// <summary>
+		///     Előre lép d hosszan, és ha le van téve a toll, akkor vonalat is húz maga után. 
+		///     Negatív szám esetén hátra lép.
+		/// </summary>
+		/// <param name="d">a mozgás hossza</param>
+		void Előre(double d) => defaultkaresz.Előre(d);
+
+		/// <summary>
+		///     Hátra lép d hosszan. 
+		///     Negatív szám esetén előre lép.
+		/// </summary>
+		/// <param name="d"></param>
+		void Hátra(double d) => defaultkaresz.Hátra(d);
+		/// <summary>
+		///     Jobbra fordul d fokot. 
+		///     Negatív szám esetén balra fordul annyit.
+	    /// </summary>
+		/// <param name="d">A fordulás szöge fokban megadva</param>
+		void Jobbra(double d) => defaultkaresz.Jobbra(d);
+		/// <summary>
+		///     Balra fordul d fokot. 
+		///     Negatív szám esetén jobbra fordul annyit.
+		/// </summary>
+		/// <param name="d">A fordulás szöge fokban megadva</param>
+		void Balra(double d) => defaultkaresz.Balra(d);
+        /// <summary>
+        ///     ugyanaz, mint a jobbra!
+        /// </summary>
+        /// <param name="d"></param>
         void Fordulj(double d) => defaultkaresz.Fordulj(d);
+        /// <summary>
+        ///     Ugyanaz, mint az előre!
+        /// </summary>
+        /// <param name="d"></param>
         void Lépj(double d) => defaultkaresz.Lépj(d);
-        void Pihi(int i) => defaultkaresz.Pihi(i);
-        void Tollat(bool b) => defaultkaresz.Tollat(b);
-        Color Milyen_szín_van_itt() => defaultkaresz.Milyen_szín_van_itt();
-        void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
-        void Tollszín(Color c) => defaultkaresz.Tollszín(c);
-        void Tollszín(int i) => defaultkaresz.Tollszín(i);
-        void Tollvastagság(float v) => defaultkaresz.Tollvastagság(v);
-        void Ív(double f, double r) => defaultkaresz.Ív(f, r);
-        void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
+		/// <summary>
+		///     Karesz várni fog i db ezredmásodpercet, mielőtt továbbrajzol.
+		/// </summary>
+		/// <param name="i">a kivárt másodpercek száma</param>
+		void Pihi(int i) => defaultkaresz.Pihi(i);
+		/// <summary>
+		///     Ha b igaz, akkor leteszi a tollat és vonalat húz, mikor mozog. 
+		///     Ha b hamis, akkor felemeli a tollat és nem húz vonalat, mikor mozog.
+		///     A fel és le kifejezések logikai konstansok, tehát a Tollat(fel) fel fogja emelni a tollat, a Tollat(le) pedig leteszi a tollat.
+	    /// </summary>
+		/// <param name="b">fel vagy le</param>
+		void Tollat(bool b) => defaultkaresz.Tollat(b);
+		/// <summary>
+		///     Megmondja, hogy Karesz milyen színű területen áll. A visszaadott érték Color típusú!
+		/// </summary>
+		/// <returns>Annak a színe, hogy Karesz milyen színű pixelen áll.</returns>
+		Color Milyen_szín_van_itt() => defaultkaresz.Milyen_szín_van_itt();
+		/// <summary>
+		///     A megadott c színnel kitölti azt a másik színnel körülhatárolt azonos színű régiót, ahol van. 
+		///     Amennyiben a felület már eleve ilyen színű, akkor felugrik egy idegesítő ablak
+		///     Ha van egy további, hamis argumentum, ez lenne a "beszólós paraméter" értéke, akkor nem ugrik fel popup ablak.
+	    /// </summary>
+		/// <param name="c">Milyen színnel töltsön</param>
+		/// <param name="beszólós">Legyen-e felugró ablak?</param>
+		void Tölt(Color c, bool beszólós = true) => defaultkaresz.Tölt(c, beszólós);
+		/// <summary>
+		///     Átállítja a rajzolás színét c színre. A megadott paraméter Color típusú! 
+		///     Tehát pl.az lehet egy lehetséges bemenet, hogy Color.Red
+        /// </summary>
+		/// <param name="c"></param>
+		void Tollszín(Color c) => defaultkaresz.Tollszín(c);
+		/// <summary>
+		/// Hasonló a fentihez, de néhány színhez sorszám van rendelve és a megadott i-edik színt választja ilyenkor. Hasznos olyankor, amikor random vagy összevissza színekkel kell valamit kiszínezni!
+		/// </summary>
+		/// <param name="i"></param>
+		void Tollszín(int i) => defaultkaresz.Tollszín(i);
+		//void Tollvastagság(float v) => defaultkaresz.Tollvastagság(v);
+		/// <summary>
+		/// Átállítja a toll vastagságát v vastagságúra.
+		/// </summary>
+		/// <param name="v"></param>
+		void Tollvastagság(double v) => defaultkaresz.Tollvastagság((float)v);
+		/// <summary>
+		/// Elindul egy r sugarú körön úgy, hogy a végén f fokkal lesz elfordulva jobbra. Negatív érték esetén balra rajzolja az ívet.
+
+		/// </summary>
+		/// <param name="f">a rajzolt ív középponti szöge -- ennyivel lesz elfordulva Karesz az ív végén!</param>
+		/// <param name="r">A körív sugara</param>
+		void Ív(double f, double r) => defaultkaresz.Ív(f, r);
+		/// <summary>
+		/// Ugyanaz, mint az előbb, de egy double-double párral dolgozik. Az első a fok, a második a sugár.
+		/// </summary>
+		/// <param name="fr"></param>
+		void Ív((double, double)fr) => defaultkaresz.Ív(fr.Item1, fr.Item2);
 
         /// <summary>
 		/// Karesz egy másodrendű Bezier-görbét követve mozog. 
